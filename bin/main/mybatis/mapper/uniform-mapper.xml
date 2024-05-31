@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.uniform2.dao.Iuniformdao">
+
+	<!-- 회원가입 -->
+	<insert id="regist">
+		insert into membertbl(username, name, password, phone,
+		addr, role)
+		values(#{username}, #{name}, #{password}, #{phone}, #{addr},
+		#{role})
+	</insert>
+	
+	<!-- 사용자 이름 가져오기 -->
+	<select id="findByUsername" resultType="com.green.uniform2.dto.MemberDto">
+		select * from membertbl where username = #{username}
+	</select>
+
+	<!-- 로그인 -->
+	<select id="login" resultType="com.green.uniform2.dto.MemberDto">
+		SELECT username, userpw, role, mid
+		FROM membertbl
+		WHERE username = #{username} and password = #{password}
+	</select>
+	
+	<!-- 회원 정보수정 -->
+	<update id="update">
+		update membertbl set username = #{username}, name = #{name},
+		password = #{password}, phone = #{phone}, addr = #{addr}
+		where username = #{username}
+	</update>
+
+	<!-- 상품등록 -->
+	<insert id="productRegist">
+		insert into product(pname, imgurl, amount, price,
+		description)
+		values(#{pname}, #{imgurl}, #{amount}, #{price},
+		#{description})
+	</insert>
+
+	<!-- 상품조회 -->
+	<select id="productList"
+		resultType="com.green.uniform2.dto.ProductDto">
+		select * from product
+	</select>
+
+	<!-- 상품개별조회 -->
+	<select id="productGetPcode"
+		resultType="com.green.uniform2.dto.ProductDto">
+		select * from product where pcode = #{pcode}
+	</select>
+
+	<!-- 상품수정 -->
+	<update id="productUpdate">
+		UPDATE product SET pname = #{pname}, imgurl =
+		#{imgurl}, amount = #{amount},
+		price = #{price}, description =
+		#{description} where pcode = #{pcode}
+	</update>
+
+	<!-- 상품삭제 -->
+	<delete id="productDelete">
+		delete from product where pcode = #{pcode}
+	</delete>
+
+	<!-- 장바구니담기 -->
+	<insert id="cartAdd">
+		insert into cart(username, pcode, amount)
+		values(#{username},
+		#{pcode}, #{amount})
+	</insert>
+
+	<!-- 장바구니에 담긴 제품리스트 -->
+	<select id="cartList" resultType="com.green.uniform2.dto.CartDto">
+		SELECT c.cid, c.username, c.pcode,
+		sum(c.amount) amount, p.pname, p.imgurl, p.price,
+		(sum(c.amount) * p.price) totalprice
+		FROM cart c
+		JOIN membertbl m
+		ON c.username = m.username
+		JOIN product p
+		ON c.pcode = p.pcode
+		WHERE m.username = #{username}
+		GROUP BY c.pcode
+		ORDER BY c.cid ASC
+	</select>
+
+	<!-- 주문하기 페이지에서 주문할 제품리스트 -->
+	<select id="orderList"
+		resultType="com.green.uniform2.dto.CartDto">
+		SELECT c.cid, c.username, c.pcode, sum(c.amount) amount,m.NAME,
+		m.addr, m.phone, p.pname, p.imgurl, p.price,
+		(sum(c.amount) * p.price) totalprice
+		FROM cart c
+		JOIN membertbl m
+		ON c.username = m.username
+		JOIN product p
+		ON c.pcode = p.pcode
+		WHERE c.username = #{username}
+		GROUP BY c.pcode
+		ORDER BY c.cid ASC
+	</select>
+
+	<select id="cartinfo" resultType="com.green.uniform2.dto.CartDto">
+		SELECT * FROM cart WHERE username = #{username}
+		GROUP BY MID, pcode, amount
+	</select>
+
+	<!-- 주문하기 등록 -->
+	<insert id="orderNow">
+		insert into ordertbl (username, pcode, amount)
+		values(#{username}, #{pcode}, #{amount})
+	</insert>
+	
+	<!-- 장바구니 제품 삭제 -->
+	<delete id="deleteCart">
+		DELETE FROM cart WHERE username = #{username} and pcode = #{pcode}
+	</delete>
+
+</mapper>
