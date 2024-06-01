@@ -118,11 +118,15 @@ public class MyController {
 	public String detail(Model model, @RequestParam("pcode") int pcode,
 			@AuthenticationPrincipal CustomUserDetails customUserDetails) {
 
-		model.addAttribute("prod", dao.productGetPcode(pcode));
 		
-		model.addAttribute("username", customUserDetails.getUsername());
-		model.addAttribute("name", customUserDetails.getName());
-		model.addAttribute("role", customUserDetails.getRole());
+		if(customUserDetails == null) {
+			model.addAttribute("prod", dao.productGetPcode(pcode));
+		}else {
+			model.addAttribute("prod", dao.productGetPcode(pcode));
+			model.addAttribute("username", customUserDetails.getUsername());
+			model.addAttribute("name", customUserDetails.getName());
+			model.addAttribute("role", customUserDetails.getRole());
+		}
 
 		return "detail";
 	}
@@ -133,19 +137,16 @@ public class MyController {
 	public String orderPage(@RequestParam("username") String username,
 			Model model) {
 		
-		List<CartDto> orderlist = dao.orderList(username);
+		List<CartDto> orderlist = dao.orderPageList(username);
 		
 		model.addAttribute("orderlist", orderlist);
 		
 		return "orderPage";
 	}
 	
+	
 	@RequestMapping("/order")
-	public String order(
-			@RequestParam("mid") int mid,
-			@RequestParam("pcode") int pcode,
-			@RequestParam("amount") int amount,
-			OrderDto orderDto,
+	public String order(OrderDto orderDto,
 			Model model) {
 		
 		boolean tf = dao.orderNow(orderDto);
@@ -156,15 +157,7 @@ public class MyController {
 		return "orderSuccess";
 	}
 	
-	/* 장바구니 제품삭제 */
-	@RequestMapping("/deleteCart")
-	public String deleteCart(@RequestParam("mid") int mid,
-			@RequestParam("pcode") int pcode) {
-		
-		dao.deleteCart(mid,pcode);
-		
-		return "redirect:cartPage?mid=" + mid;
-	}
+	
 
 	
 	

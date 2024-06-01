@@ -45,6 +45,9 @@ h1 {
 			<div>
 				<a href="../members/cartPage?username=${username }">장바구니</a>
 			</div>
+			<div>
+				<a href="../members/orderList?username=${username }">주문 목록</a>
+			</div>
 		</div>
 
 	</main>

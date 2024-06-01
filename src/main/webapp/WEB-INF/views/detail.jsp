@@ -45,6 +45,12 @@ main {
 	font-size: 30px;
 }
 
+.detail-info-text h6{
+	font-size:14px;
+	font-weight:400;
+	margin-top:15px;
+}
+
 .detail-info-text-in2 {
 	padding-top: 30px;
 	margin-top: 30px;
@@ -209,6 +215,7 @@ main {
 					<h2>${prod.pname }</h2>
 					<h3>${prod.description }</h3>
 					<h4>${prod.price }원</h4>
+					<h6 class="amountText">재고 : ${prod.amount } 개</h6>
 				</div>
 				<div class="detail-info-text-in2">
 					<p>
@@ -245,19 +252,12 @@ main {
 					</div>
 				</div>
 				<div class="active-btn">
-					<a href="" id="send-link" class="add-cart"> <img
+					<a href="/members/cartAdd?pcode=${prod.pcode }&username=${username}&amount=1" id="send-link" class="add-cart"> <img
 						src="/resource/img/cart.png">
-					</a> <a href="" id="order-link" class="order">바로주문</a>
+					</a> <a href="/order?username=${username}&pcode=${prod.pcode}&quantity=1" id="order-link" class="order">바로주문</a>
 				</div>
 			</div>
 		</div>
-
-		<c:if test="${not empty msg}">
-			<script>
-				alert("${msg}");
-			</script>
-		</c:if>
-		
 
 
 		<div class="review-area-title">
@@ -280,10 +280,11 @@ main {
 		</div>
 
 	</main>
-
-
 	<script>
-
+	
+	if(result == 1){
+		alert("장바구니에 담겼습니다.");
+		}
 	
 	function updateValue(button, direction) {
 		var totalPriceResult = document.getElementById("total-price-result");
@@ -299,17 +300,12 @@ main {
         totalPriceResult.innerText = ${prod.price} * value + " 원";
         
         // 장바구니 - 링크 요소의 href를 설정합니다
-        document.getElementById('send-link').href = '/cartAdd?pcode=${prod.pcode }&username=${username}&amount=' + value;
+        document.getElementById('send-link').href = '/members/cartAdd?pcode=${prod.pcode }&username=${username}&amount=' + value;
         
         // 바로주문
-        document.getElementById('order-link').href = '/order?mid=${sessionScope.mid}&pcode=${prod.pcode}&amount=' + value;
+        document.getElementById('order-link').href = '/order?username=${username}&pcode=${prod.pcode}&quantity=' + value;
     };
-    // 장바구니 - 초기 링크 href 설정
-    document.getElementById('send-link').href = '/cartAdd?pcode=${prod.pcode }&mid=${sessionScope.mid}&amount=1';
-    // 바로주문
-    document.getElementById('order-link').href = '/order?mid=${sessionScope.mid}&pcode=${prod.pcode}&amount=1';
-	
-  
+   
 	</script>
 
 

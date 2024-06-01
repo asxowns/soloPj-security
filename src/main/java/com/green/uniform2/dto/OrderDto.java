@@ -12,6 +12,10 @@ public class OrderDto {
 	private int oid;
 	private String username;
 	private int pcode;
-	private int amount;
+	private int quantity;
+	private String pname;
+	private String imgurl;
+	private int price;
+	private int totalprice;
 	
 }

@@ -6,14 +6,17 @@
 
 	<!-- 회원가입 -->
 	<insert id="regist">
-		insert into membertbl(username, name, password, phone,
+		insert into membertbl(username, name, password,
+		phone,
 		addr, role)
-		values(#{username}, #{name}, #{password}, #{phone}, #{addr},
+		values(#{username}, #{name}, #{password}, #{phone},
+		#{addr},
 		#{role})
 	</insert>
-	
+
 	<!-- 사용자 이름 가져오기 -->
-	<select id="findByUsername" resultType="com.green.uniform2.dto.MemberDto">
+	<select id="findByUsername"
+		resultType="com.green.uniform2.dto.MemberDto">
 		select * from membertbl where username = #{username}
 	</select>
 
@@ -23,12 +26,14 @@
 		FROM membertbl
 		WHERE username = #{username} and password = #{password}
 	</select>
-	
+
 	<!-- 회원 정보수정 -->
 	<update id="update">
-		update membertbl set username = #{username}, name = #{name},
+		update membertbl set username = #{username}, name =
+		#{name},
 		password = #{password}, phone = #{phone}, addr = #{addr}
-		where username = #{username}
+		where
+		username = #{username}
 	</update>
 
 	<!-- 상품등록 -->
@@ -72,50 +77,72 @@
 	</insert>
 
 	<!-- 장바구니에 담긴 제품리스트 -->
-	<select id="cartList" resultType="com.green.uniform2.dto.CartDto">
+	<select id="cartList"
+		resultType="com.green.uniform2.dto.CartDto">
 		SELECT c.cid, c.username, c.pcode,
-		sum(c.amount) amount, p.pname, p.imgurl, p.price,
+		sum(c.amount) amount,
+		p.pname, p.imgurl, p.price,
 		(sum(c.amount) * p.price) totalprice
-		FROM cart c
+		FROM
+		cart c
 		JOIN membertbl m
 		ON c.username = m.username
 		JOIN product p
-		ON c.pcode = p.pcode
+		ON
+		c.pcode = p.pcode
 		WHERE m.username = #{username}
 		GROUP BY c.pcode
-		ORDER BY c.cid ASC
+		ORDER
+		BY c.cid ASC
 	</select>
 
-	<!-- 주문하기 페이지에서 주문할 제품리스트 -->
-	<select id="orderList"
+	<!-- 주문하기 페이지에서 장바구니에 담겨있던 주문할 제품리스트 -->
+	<select id="orderPageList"
 		resultType="com.green.uniform2.dto.CartDto">
-		SELECT c.cid, c.username, c.pcode, sum(c.amount) amount,m.NAME,
+		SELECT c.cid, c.username, c.pcode, sum(c.amount)
+		amount,m.NAME,
 		m.addr, m.phone, p.pname, p.imgurl, p.price,
 		(sum(c.amount) * p.price) totalprice
 		FROM cart c
 		JOIN membertbl m
-		ON c.username = m.username
+		ON
+		c.username = m.username
 		JOIN product p
 		ON c.pcode = p.pcode
-		WHERE c.username = #{username}
+		WHERE
+		c.username = #{username}
 		GROUP BY c.pcode
 		ORDER BY c.cid ASC
 	</select>
 
-	<select id="cartinfo" resultType="com.green.uniform2.dto.CartDto">
+	<select id="cartinfo"
+		resultType="com.green.uniform2.dto.CartDto">
 		SELECT * FROM cart WHERE username = #{username}
-		GROUP BY MID, pcode, amount
+		GROUP BY
+		MID, pcode, amount
 	</select>
 
 	<!-- 주문하기 등록 -->
 	<insert id="orderNow">
-		insert into ordertbl (username, pcode, amount)
-		values(#{username}, #{pcode}, #{amount})
+		insert into ordertbl (username, pcode, quantity)
+		values(#{username}, #{pcode}, #{quantity})
 	</insert>
-	
+
 	<!-- 장바구니 제품 삭제 -->
 	<delete id="deleteCart">
-		DELETE FROM cart WHERE username = #{username} and pcode = #{pcode}
+		DELETE FROM cart WHERE username = #{username} and
+		pcode = #{pcode}
 	</delete>
+
+	<!-- 주문목록 리스트 -->
+	<select id="orderList"
+		resultType="com.green.uniform2.dto.OrderDto">
+		SELECT o.username, o.pcode, o.quantity, p.pname, p.imgurl,
+		p.price, (o.quantity * p.price) totalprice
+		FROM ordertbl o
+		JOIN product p
+		ON o.pcode = p.pcode
+		WHERE o.username = #{username};
+	</select>
 
 </mapper>

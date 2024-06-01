@@ -49,8 +49,8 @@ public interface Iuniformdao {
 	//장바구니 목록(리스트)
 	public List<CartDto> cartList(@Param("username") String username);
 
-	//주문페이지 목록(리스트)
-	public List<CartDto> orderList(@Param("username") String username);
+	//주문하기 페이지 목록(리스트)
+	public List<CartDto> orderPageList(@Param("username") String username);
 	
 	//주문하기 (주문테이블 등록)
 	public boolean orderNow(OrderDto orderDto);
@@ -59,6 +59,9 @@ public interface Iuniformdao {
 	public CartDto cartinfo(@Param("username") String username);
 	
 	//장바구니 전부삭제(mid)
-	public void deleteCart(@Param("username") int username, @Param("pcode") int pcode);
+	public void deleteCart(@Param("username") String username, @Param("pcode") int pcode);
+	
+	//주문목록 리스트
+	public List<OrderDto> orderList(@Param("username") String username);
 	
 }
