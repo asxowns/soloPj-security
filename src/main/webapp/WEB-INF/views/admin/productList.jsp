@@ -74,7 +74,7 @@
 </head>
 <body>
 	<header>
-		<%@ include file="./common/header.jsp" %>
+		<%@ include file="../common/header.jsp" %>
 	</header>
 	
 	<main>
@@ -97,7 +97,7 @@
 				<c:forEach var="prod" items="${list }">
 					<tr>
 						<td>${prod.pcode }</td>
-						<td><a href="" class="prod-name">${prod.pname }</a></td>
+						<td><a href="detail?pcode=${prod.pcode }" class="prod-name">${prod.pname }</a></td>
 						<td class="imgTd"><img src="/resource/img/${prod.imgurl }"></td>
 						<td class="amountTd">${prod.amount }개</td>
 						<td class="priceTd">${prod.price } 원</td>

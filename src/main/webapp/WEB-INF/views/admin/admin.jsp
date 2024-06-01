@@ -28,7 +28,7 @@
 </head>
 <body>
 	<header>
-		<%@ include file="./common/header.jsp" %>
+		<%@ include file="../common/header.jsp" %>
 	</header>
 
 	<main>
@@ -36,10 +36,10 @@
 		
 		<div class="admin-menu">
 			<div>
-				<a href="productRegistForm">상품 등록</a>
+				<a href="../admin/productRegistForm">상품 등록</a>
 			</div>
 			<div>
-				<a href="productList">상품 조회</a>
+				<a href="../admin/productList">상품 조회</a>
 			</div>
 		</div>
 	</main>

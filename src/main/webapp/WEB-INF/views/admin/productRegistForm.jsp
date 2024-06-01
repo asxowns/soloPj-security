@@ -44,7 +44,7 @@
 	.productRegistBtn{
 		width:600px;
 		margin:20px auto;
-		text-align:right;
+		text-align:center;
 	}
 	.productRegistBtn a{
 		display:inline-block;
@@ -56,7 +56,7 @@
 </head>
 <body>
 	<header>
-		<%@ include file="./common/header.jsp" %>
+		<%@ include file="../common/header.jsp" %>
 	</header>
 	
 	<main>

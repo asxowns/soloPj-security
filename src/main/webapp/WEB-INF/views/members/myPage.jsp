@@ -40,10 +40,10 @@ h1 {
 
 		<div class="my-menu">
 			<div>
-				<a href="updateForm?mid=${sessionScope.mid }">내 정보수정</a>
+				<a href="updateForm?username=${username }">내 정보수정</a>
 			</div>
 			<div>
-				<a href="cartPage?mid=${sessionScope.mid }">장바구니</a>
+				<a href="../members/cartPage?username=${username }">장바구니</a>
 			</div>
 		</div>
 

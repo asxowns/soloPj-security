@@ -46,6 +46,20 @@
 	}
 	.price{
 		font-size:18px;
+		display:flex;
+		justify-content:space-between;
+		align-items:center;
+	}
+	.price span{
+		display:inline-block;
+		font-size:13px;
+		font-weight:400;
+		color:#888;
+		padding-right:20px;
+	}
+	
+	.newItem{
+		margin-top:150px;
 	}
 </style>
 </head>
@@ -55,10 +69,10 @@
 	</header>
 	
 	<main>
-		<h1>베스트</h1>
+		<h1>베스트 상품</h1>
 		<div class="best-item">
 			<ul>
-				<c:forEach var="prod" items="${list }">
+				<c:forEach var="prod" items="${list }" begin="0" end="3">
 					<li>
 						<a href="detail?pcode=${prod.pcode }">
 							<div class="item-img">
@@ -66,7 +80,26 @@
 							</div>
 							<div class="item-info">
 								<h3 class="pname">${prod.pname }</h3>
-								<h2 class="price">${prod.price } 원</h2>
+								<h2 class="price">${prod.price } 원 <span>재고 : ${prod.amount }</span></h2>
+							</div>
+						</a>
+					</li>
+				</c:forEach>
+			</ul>
+		</div>
+		
+		<h1 class="newItem">신상품</h1>
+		<div class="best-item">
+			<ul>
+				<c:forEach var="prod" items="${list }" begin="4">
+					<li>
+						<a href="detail?pcode=${prod.pcode }">
+							<div class="item-img">
+								<img src="/resource/img/${prod.imgurl }">
+							</div>
+							<div class="item-info">
+								<h3 class="pname">${prod.pname }</h3>
+								<h2 class="price">${prod.price } 원 <span>재고 : ${prod.amount }</span></h2>
 							</div>
 						</a>
 					</li>

@@ -89,11 +89,11 @@ a {
 						<li><a href="loginform">로그인</a></li>
 					</sec:authorize>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
-						<li><a href="admin/admin"><sec:authentication
+						<li><a href="../admin/admin"><sec:authentication
 									property="name" /></a>
 					</sec:authorize>
 					<sec:authorize access="hasRole('ROLE_MEMBER')">
-						<li><a href="myPage"><sec:authentication
+						<li><a href="../members/myPage"><sec:authentication
 									property="name" /></a>
 					</sec:authorize>
 
@@ -104,7 +104,8 @@ a {
 						<li><a href="logout">로그아웃</a></li>
 					</sec:authorize>
 					<sec:authorize access="hasRole('ROLE_MEMBER')">
-						<li><a href="cartPage?username=${username }">장바구니</a></li>
+						<li><a href="../members/cartPage?username=<sec:authentication
+									property="name" />">장바구니</a></li>
 					</sec:authorize>
 				</ul>
 			</div>

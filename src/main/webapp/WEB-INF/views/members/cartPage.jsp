@@ -144,7 +144,7 @@ tbody{
 </head>
 <body>
 	<header>
-		<%@ include file="./common/header.jsp"%>
+		<%@ include file="../common/header.jsp"%>
 	</header>
 
 	<main>
@@ -180,7 +180,7 @@ tbody{
 							<td>${cart.price } 원</td>
 							<td class="totalPrice">${cart.totalprice } 원</td>
 							<td>무료</td>
-							<td class="delBtn"><a href="deleteCart?mid=${sessionScope.mid }&pcode=${cart.pcode}">삭제</a></td>
+							<td class="delBtn"><a href="deleteCart?username=${username }&pcode=${cart.pcode}">삭제</a></td>
 						</tr>
 					</tbody>
 				</c:forEach>
@@ -215,7 +215,7 @@ tbody{
 				<a href="orderPage">선택 상품 주문</a>
 			</div>
 			<div>
-				<a href="orderPage?mid=${sessionScope.mid }">전체 상품 주문</a>
+				<a href="orderPage?username=${username }">전체 상품 주문</a>
 			</div>
 		</div>
 	</main>
