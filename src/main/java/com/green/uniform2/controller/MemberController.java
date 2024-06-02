@@ -63,10 +63,14 @@ public class MemberController {
 
 	/* 마이 페이지 */
 	@RequestMapping("/myPage")
-	public String mypage(HttpServletRequest request, @AuthenticationPrincipal CustomUserDetails customUserDetails,
-			Model model) {
+	public String mypage(HttpServletRequest request,
+			@AuthenticationPrincipal CustomUserDetails customUserDetails,
+			Model model,
+			@RequestParam("username") String username) {
 
 		model.addAttribute("username", customUserDetails.getUsername());
+		
+		
 
 		return "members/myPage";
 	}
