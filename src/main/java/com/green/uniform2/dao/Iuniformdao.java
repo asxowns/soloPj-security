@@ -64,4 +64,7 @@ public interface Iuniformdao {
 	//주문목록 리스트
 	public List<OrderDto> orderList(@Param("username") String username);
 	
+	//username이 있는지 확인
+	public Integer getUsername(@Param("username") String username);
+	
 }

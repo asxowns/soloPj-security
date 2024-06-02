@@ -144,5 +144,9 @@
 		ON o.pcode = p.pcode
 		WHERE o.username = #{username};
 	</select>
+	
+	<select id="getUsername" resultType="com.green.uniform2.dto.MemberDto">
+		SELECT COUNT(*) FROM membertbl WHERE username = #{username}
+	</select>
 
 </mapper>

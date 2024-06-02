@@ -36,6 +36,18 @@ table{
 	width:100%;
 	margin:0 auto;
 }
+
+.reviewTd{
+	
+}
+.reviewTd a{
+	display:inline-block;
+	background:#0071be;
+	width:90px;
+	padding:10px 0;
+	color:#fff;
+	font-size:13px;
+}
 </style>
 </head>
 <body>
@@ -49,25 +61,26 @@ table{
 			<table>
 				<thead>
 					<tr>
-						<th>상품명</th>
 						<th>이미지</th>
+						<th>상품명</th>
 						<th>주문수량</th>
 						<th>가격</th>
 						<th>총 가격</th>
+						<th>구매후기</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="order" items="${list}">
 						<tr>
-							<td>${order.pname }</td>
 							<td class="imgTd"><img src="/resource/img/${order.imgurl }"></td>
+							<td>${order.pname }</td>
 							<td>${order.quantity }</td>
 							<td>${order.price } 원</td>
 							<td>${order.totalprice } 원</td>
+							<td class="reviewTd"><a href="">후기 작성</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
-
 			</table>
 		</div>
 	</main>

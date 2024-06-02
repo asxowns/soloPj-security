@@ -62,23 +62,7 @@ public class MyController {
 		return "loginform";
 	}
 	
-	@RequestMapping("/updateForm")
-	public String updateForm(@RequestParam("username") String username,
-			Model model) {
-		
-		model.addAttribute("member", dao.findByUsername(username));
-		
-		return "registform";
-	}
 	
-	@RequestMapping("/update")
-	public String update(MemberDto memberDto,
-			Model model) {
-		
-		dao.update(memberDto);
-		
-		return "myPage";
-	}
 
 	@RequestMapping("/loginform")
 	public String loginform() {

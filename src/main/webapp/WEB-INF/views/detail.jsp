@@ -278,7 +278,7 @@ main {
 				</div>
 			</div>
 		</div>
-
+	${result }
 	</main>
 	<script>
 	

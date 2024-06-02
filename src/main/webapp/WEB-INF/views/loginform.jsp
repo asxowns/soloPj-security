@@ -21,12 +21,43 @@
 	}
 	.login-area{
 		width:1200px;
-	}
-	table{
 		margin:0 auto;
+		display:flex;
+		flex-direction:column;
+		align-items:center;
 	}
+	
+	input[type="text"],
+	input[type="password"]{
+		width:440px;
+		height:60px;
+		background:#f7f7f7;
+		color:#333;
+		border:1px solid #ddd;
+		border-radius:10px;
+		font-size:16px;
+		padding-left:20px;
+		box-sizing:border-box;
+		font-size:14px;
+	}
+	input[type="text"]{
+		border-radius:10px 10px 0px 0px;
+	}
+	input[type="password"]{
+		margin-bottom:50px;
+		border-radius:0 0 10px 10px;
+		border-top:0;
+	}
+	
 	input[type="submit"]{
-		width:100%;
+		width:440px;
+		height:60px;
+		background:#0071be;
+		color:#fff;
+		border:1px solid #0071be;
+		border-radius:10px;
+		font-size:16px;
+		cursor:pointer;
 	}
 </style>
 </head>
@@ -38,19 +69,10 @@
 	<main>
 	<h1>로그인</h1>
 		<form action="loginProc" method="post">
-			<table>
 				<div class="login-area">
-					<tr>
-						<th>아이디 : </th>
-						<td><input type="text" name="username" id="username"></td>
-					</tr>
-					<tr>
-						<th>비밀번호 : </th>
-						<td><input type="text" name="password"></td>
-					</tr>
-					<tr>
-						<td colspan="2"><input type="submit" value="로그인"></td>
-					</tr>
+						<input type="text" name="username" id="username" placeholder="아이디">
+						<input type="password" name="password" placeholder="비밀번호">
+						<input type="submit" value="로그인">
 				</div>
 			</table>
 		</form>

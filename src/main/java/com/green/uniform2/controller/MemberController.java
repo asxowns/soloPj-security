@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.green.uniform2.config.CustomUserDetails;
 import com.green.uniform2.dao.Iuniformdao;
 import com.green.uniform2.dto.CartDto;
+import com.green.uniform2.dto.MemberDto;
 import com.green.uniform2.dto.OrderDto;
 
 @Controller
@@ -22,6 +24,9 @@ public class MemberController {
 
 	@Autowired
 	private Iuniformdao dao;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@RequestMapping("/")
 	public String welcome(Model model, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
@@ -31,6 +36,29 @@ public class MemberController {
 
 		return "index";
 
+	}
+	
+	/* 내정보 수정폼 */
+	@RequestMapping("/updateForm")
+	public String updateForm(@RequestParam("username") String username,
+			Model model) {
+		
+		model.addAttribute("member", dao.findByUsername(username));
+		
+		return "./registform";
+	}
+	
+	/* 내정보 수정 */
+	@RequestMapping("/update")
+	public String update(MemberDto memberDto,
+			Model model) {
+		
+		String newPw = bCryptPasswordEncoder.encode(memberDto.getPassword());
+		memberDto.setPassword(newPw);
+		
+		dao.update(memberDto);
+		
+		return "members/myPage";
 	}
 
 	/* 마이 페이지 */
@@ -57,37 +85,41 @@ public class MemberController {
 
 	/* 장바구니 */
 	@RequestMapping("/cartAdd")
-	public String cartAdd(@RequestParam("pcode") int pcode, @RequestParam("username") String username,
-			@RequestParam("amount") int amount, CartDto cart, Model model) {
+	public String cartAdd(@RequestParam("pcode") int pcode,
+			@RequestParam("username") String username,
+			CartDto cart, Model model) {
 
-		int result = dao.cartAdd(cart);
-		System.out.println("result : " + result);
+		Integer getUsername = dao.getUsername(username);
 
-		model.addAttribute("result", result);
+		if (getUsername == 0 || getUsername == null) {
+			return "../loginform";
+		} else {
+			int result = dao.cartAdd(cart);
+			System.out.println("result : " + result);
 
-		return "redirect:../detail?pcode=" + pcode + "&result=" + result;
+			model.addAttribute("result", result);
+			return "redirect:../detail?pcode=" + pcode;
+		}
+
 	}
-	
+
 	/* 장바구니 제품삭제 */
 	@RequestMapping("/deleteCart")
-	public String deleteCart(@RequestParam("username") String username,
-			@RequestParam("pcode") int pcode) {
-		
-		dao.deleteCart(username,pcode);
-		
+	public String deleteCart(@RequestParam("username") String username, @RequestParam("pcode") int pcode) {
+
+		dao.deleteCart(username, pcode);
+
 		return "redirect:cartPage?username=" + username;
 	}
 
 	/* 주문 목록 */
-	
 	@RequestMapping("/orderList")
-	public String orderList(@RequestParam("username") String username,
-			Model model) {
-		
+	public String orderList(@RequestParam("username") String username, Model model) {
+
 		List<OrderDto> list = dao.orderList(username);
-		
+
 		model.addAttribute("list", list);
-		
+
 		return "members/orderList";
 	}
 }

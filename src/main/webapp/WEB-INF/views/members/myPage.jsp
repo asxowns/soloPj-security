@@ -7,25 +7,36 @@
 <title></title>
 <style>
 main {
-	width: 1240px;
+	width: 1200px;
 	margin: 100px auto;
+	display:flex;
+	gap:100px;
 }
 
-h1 {
-	text-align: center;
-	margin-bottom: 50px;
+.my-menu{
+	width:150px;
+}
+.my-menu h1{
+	border-bottom:1px solid #000;
+	padding-bottom:25px;
+	margin-bottom:25px;
+}
+.my-menu div{
+	margin-bottom:15px;
+	font-size:18px;
+}
+.my-menu div a:hover{
+	color:#0071be;
 }
 
-.my-menu {
-	display: flex;
-	justify-content: center;
-	gap: 50px;
+.order-list{
+	width:950px;
 }
-
-.my-menu a {
-	padding: 15px 30px;
-	background: #0071be;
-	color: #fff;
+.order-list h1{
+	border-bottom:1px solid #000;
+	padding-bottom:25px;
+	margin-bottom:25px;
+	font-weight:400;
 }
 </style>
 </head>
@@ -36,9 +47,8 @@ h1 {
 	</header>
 
 	<main>
-		<h1>My Page</h1>
-
 		<div class="my-menu">
+			<h1>마이 페이지</h1>
 			<div>
 				<a href="updateForm?username=${username }">내 정보수정</a>
 			</div>
@@ -50,6 +60,9 @@ h1 {
 			</div>
 		</div>
 
+		<div class="order-list">
+			<h1>주문 목록</h1>
+		</div>
 	</main>
 </body>
 </html>

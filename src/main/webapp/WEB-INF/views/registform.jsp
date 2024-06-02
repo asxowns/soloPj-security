@@ -24,6 +24,10 @@
 	}
 	.table-area{
 		width:1200px;
+		margin:0 auto;
+		display:flex;
+		flex-direction:column;
+		align-items:center;
 	}
 	table{
 		margin:0 auto;
@@ -31,9 +35,30 @@
 	th{
 		text-align:right;
 	}
+	
+	input[type="text"]{
+		width:440px;
+		height:60px;
+		background:#f7f7f7;
+		color:#333;
+		border:1px solid #ddd;
+		border-radius:10px;
+		font-size:16px;
+		padding-left:20px;
+		box-sizing:border-box;
+		font-size:14px;
+		margin-bottom:20px;
+	}
+	
 	input[type="submit"]{
-		width:100%;
-		height:50px;
+		width:440px;
+		height:60px;
+		background:#0071be;
+		color:#fff;
+		border:1px solid #0071be;
+		border-radius:10px;
+		font-size:16px;
+		cursor:pointer;
 	}
 </style>
 </head>
@@ -45,87 +70,62 @@
 	<main>
 	<h1>회원 가입</h1>
 	<c:choose>
-		<c:when test="${member.mid eq null }">
+		<c:when test="${member.username eq null }">
 			<form action="regist" method="post">
 		</c:when>
-		<c:when test="${member.mid ne null }">
+		<c:when test="${member.username ne null }">
 			<form action="update" method="post">
 		</c:when>
 	</c:choose>
 			<div class="table-area">
-				<table>
-					<tr>
-						<th>번호</th>
-						<c:if test="${member.mid ne null }">
-							<td><input type="text" name="mid" value="${member.mid }" readonly></td>
-						</c:if>
-					</tr>
-					<tr>
-						<th>이름 : </th>
 						<c:choose>
 							<c:when test="${member.name eq null }">
-								<td><input type="text" name="name"></td>
+								<input type="text" name="name" placeholder="이름">
 							</c:when>
 							<c:when test="${member.name ne null }">
-								<td><input type="text" name="name" value="${member.name }"></td>
+								<input type="text" name="name" placeholder="이름" value="${member.name }">
 							</c:when>
 						</c:choose>
-					</tr>
-					<tr>
-						<th>아이디 : </th>
 						<c:choose>
 							<c:when test="${member.username eq null }">
-								<td><input type="text" name="username"></td>
+								<input type="text" name="username" placeholder="아이디">
 							</c:when>
 							<c:when test="${member.username ne null }">
-								<td><input type="text" name="username" value="${member.username }"></td>
+								<input type="text" name="username" placeholder="아이디" value="${member.username }">
 							</c:when>
 						</c:choose>
-					</tr>
-					<tr>
-						<th>비밀번호 : </th>
 						<c:choose>
-							<c:when test="${member.userpw eq null }">
-								<td><input type="text" name="password"></td>
+							<c:when test="${member.password eq null }">
+								<input type="text" name="password" placeholder="비밀번호">
 							</c:when>
-							<c:when test="${member.userpw ne null }">
-								<td><input type="text" name="password" value="${member.userpw }"></td>
+							<c:when test="${member.password ne null }">
+								<input type="text" name="password" placeholder="비밀번호" value="${member.password }">
 							</c:when>
 						</c:choose>
-					</tr>
-					<tr>
-						<th>휴대폰 번호 : </th>
 						<c:choose>
 							<c:when test="${member.phone eq null }">
-								<td><input type="text" name="phone"></td>
+								<input type="text" name="phone" placeholder="휴대폰번호">
 							</c:when>
 							<c:when test="${member.phone ne null }">
-								<td><input type="text" name="phone" value="${member.phone }"></td>
+								<input type="text" name="phone" placeholder="휴대폰번호" value="${member.phone }">
 							</c:when>
 						</c:choose>
-					</tr>
-					<tr>
-						<th>주소 : </th>
 						<c:choose>
 							<c:when test="${member.addr eq null }">
-								<td><input type="text" name="addr"></td>
+								<input type="text" name="addr" placeholder="주소">
 							</c:when>
 							<c:when test="${member.addr ne null }">
-								<td><input type="text" name="addr" value="${member.addr }"></td>
+								<input type="text" name="addr" placeholder="주소" value="${member.addr }">
 							</c:when>
 						</c:choose>
-					</tr>
-					<tr>
 					<c:choose>
-						<c:when test="${member.mid eq null }">
-							<td colspan="2"><input type="submit" value="회원가입"></td>
+						<c:when test="${member.username eq null }">
+							<input type="submit" value="회원가입">
 						</c:when>
-						<c:when test="${member.mid ne null }">
-							<td colspan="2"><input type="submit" value="수정하기"></td>
+						<c:when test="${member.username ne null }">
+							<input type="submit" value="수정하기">
 						</c:when>
 					</c:choose>
-					</tr>
-				</table>
 			</div>
 		</form>
 	</main>
