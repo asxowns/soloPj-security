@@ -37,9 +37,6 @@ table{
 	margin:0 auto;
 }
 
-.reviewTd{
-	
-}
 .reviewTd a{
 	display:inline-block;
 	background:#0071be;

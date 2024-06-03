@@ -70,6 +70,9 @@ public class MemberController {
 
 		model.addAttribute("username", customUserDetails.getUsername());
 		
+		List<OrderDto> list = dao.orderList(username);
+
+		model.addAttribute("list", list);
 		
 
 		return "members/myPage";

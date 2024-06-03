@@ -57,6 +57,10 @@ a {
 	font-size: 20px;
 }
 
+.nav-bar ul li a:hover {
+	color: #0071be;
+}
+
 .info-area ul {
 	display: flex;
 }
@@ -93,7 +97,9 @@ a {
 									property="name" /></a>
 					</sec:authorize>
 					<sec:authorize access="hasRole('ROLE_MEMBER')">
-						<li><a href="../members/myPage"><sec:authentication
+						<li><a
+							href="../members/myPage?username=<sec:authentication
+									property="name" />"><sec:authentication
 									property="name" /></a>
 					</sec:authorize>
 
@@ -104,7 +110,8 @@ a {
 						<li><a href="logout">로그아웃</a></li>
 					</sec:authorize>
 					<sec:authorize access="hasRole('ROLE_MEMBER')">
-						<li><a href="../members/cartPage?username=<sec:authentication
+						<li><a
+							href="../members/cartPage?username=<sec:authentication
 									property="name" />">장바구니</a></li>
 					</sec:authorize>
 				</ul>

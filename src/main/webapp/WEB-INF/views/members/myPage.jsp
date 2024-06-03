@@ -9,34 +9,42 @@
 main {
 	width: 1200px;
 	margin: 100px auto;
-	display:flex;
-	gap:100px;
+	display: flex;
+	gap: 100px;
 }
 
-.my-menu{
-	width:150px;
-}
-.my-menu h1{
-	border-bottom:1px solid #000;
-	padding-bottom:25px;
-	margin-bottom:25px;
-}
-.my-menu div{
-	margin-bottom:15px;
-	font-size:18px;
-}
-.my-menu div a:hover{
-	color:#0071be;
+.my-menu {
+	width: 150px;
 }
 
-.order-list{
-	width:950px;
+.my-menu h1 {
+	border-bottom: 1px solid #000;
+	padding-bottom: 25px;
+	margin-bottom: 25px;
 }
-.order-list h1{
-	border-bottom:1px solid #000;
-	padding-bottom:25px;
-	margin-bottom:25px;
-	font-weight:400;
+
+.my-menu div {
+	margin-bottom: 15px;
+	font-size: 18px;
+}
+
+.my-menu div a:hover {
+	color: #0071be;
+}
+
+.order-list {
+	width: 950px;
+}
+
+.order-list h1 {
+	border-bottom: 1px solid #000;
+	padding-bottom: 25px;
+	margin-bottom: 25px;
+	font-weight: 400;
+}
+
+.order-list img {
+	width: 100px;
 }
 </style>
 </head>
@@ -62,6 +70,16 @@ main {
 
 		<div class="order-list">
 			<h1>주문 목록</h1>
+			<c:forEach var="order" items="${list}">
+				<div>
+					<img src="/resource/img/${order.imgurl }">
+						${order.pname }
+						${order.quantity }
+						${order.price }원
+						${order.totalprice }원
+						<a href="">후기 작성</a>
+				</div>
+			</c:forEach>
 		</div>
 	</main>
 </body>
